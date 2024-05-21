@@ -9,8 +9,8 @@ class AbsTester:
     """Abstract cls for HTTP Tester."""
 
     user_agent = USER_AGENTS[0]
-    proxy_http = r"http://bpusr023:bppwd023@162.212.175.154:12345"
-    proxy_socks = "socks5://127.0.0.1:9951"
+    proxy_http = r"http://127.0.0.1:80"
+    proxy_socks = "socks5://127.0.0.1:1080"
 
     # test url for mock 429 errors, etc.
     url_mock = "https://example.com"
