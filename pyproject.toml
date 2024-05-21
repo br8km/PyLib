@@ -1,11 +1,31 @@
 [project]
 name = "pylib"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "Python Common Library"
 authors = [
     { name = "br8km", email = "59230598+br8km@users.noreply.github.com" }
 ]
-dependencies = []
+dependencies = [
+    "regex>=2024.5.15",
+    "requests>=2.31.0",
+    "arrow>=1.3.0",
+    "selectolax>=0.3.21",
+    "loguru>=0.7.2",
+    "pytz>=2024.1",
+    "orjson>=3.10.3",
+    "pysocks>=1.7.1",
+    "tqdm>=4.66.4",
+    "responses>=0.25.0",
+    "filetype>=1.2.0",
+    "imageio>=2.34.1",
+    "numpy>=1.26.4",
+    "pillow>=10.3.0",
+    "curl-cffi>=0.6.4",
+    "respx>=0.21.1",
+    "pytest>=8.2.1",
+    "pytest-asyncio>=0.23.7",
+    "httpx[http2,socks]>=0.27.0",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -22,3 +42,11 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pylib"]
+
+
+[tool.pytest.ini_options]
+# pythonpath = [ "." ]
+addopts = [
+    "--import-mode=importlib",
+]
+asyncio_mode = "auto"
