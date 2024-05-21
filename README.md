@@ -4,4 +4,4 @@
 
 - [arch](./docs/arch.md)
 - [issues](./docs/issues.md)
-- [toto](./docs/todo.md)
+- [todo](./docs/todo.md)
