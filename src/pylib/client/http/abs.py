@@ -3,6 +3,7 @@
 from abc import abstractmethod
 from typing import Optional
 
+# This is the ONLY line different from other http client version
 from requests import Response
 
 
