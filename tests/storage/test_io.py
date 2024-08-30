@@ -1,7 +1,9 @@
 import random
 from pathlib import Path
+from typing import Generator
 
 import pytest
+
 from pylib.storage.io import IO
 
 
@@ -21,13 +23,13 @@ class Tester:
         folder = tmp_path / "test"
         folder_str = str(folder)
 
-        assert self.io.dir_create(dir_name=folder)
-        assert self.io.dir_del(dir_name=folder, remain_root=True)
-        assert self.io.dir_del(dir_name=folder)
+        assert self.io.dir_create(folder=folder)
+        assert self.io.dir_del(folder=folder, remain_root=True)
+        assert self.io.dir_del(folder=folder)
 
-        assert self.io.dir_create(dir_name=folder_str)
-        assert self.io.dir_del(dir_name=folder_str, remain_root=True)
-        assert self.io.dir_del(dir_name=folder_str)
+        assert self.io.dir_create(folder=folder_str)
+        assert self.io.dir_del(folder=folder_str, remain_root=True)
+        assert self.io.dir_del(folder=folder_str)
 
     def test_save_load_str(self, temp_file: Path) -> None:
         """test save_str, load_str"""
@@ -96,9 +98,25 @@ class Tester:
         assert self.io.file_del(temp_file)
 
     def test_save_load_list_dict(self, temp_file: Path) -> None:
-        """test save_list_dict, load_list_dict"""
+        """Test save_list_dict, load_list_dict"""
         content = [{"name": "Ben", "age": 24, "float": 123.456} for _ in range(10)]
         self.io.save_list_dict(temp_file, content)
         assert temp_file.is_file()
         assert self.io.load_list_dict(temp_file) == content
         assert self.io.file_del(temp_file)
+
+    def test_save_jsonl(self, temp_file: Path) -> None:
+        """Test Method: `save_jsonl`, `load_jsonl`, `add_jsonl`."""
+        data = [{"index": index} for index in range(10)]
+
+        def to_generator(
+            data: list[dict],
+        ) -> Generator[dict, None, None]:
+            for item in data:
+                yield item
+
+        assert self.io.save_jsonl(temp_file, to_generator(data))
+        assert temp_file.is_file()
+        loaded = self.io.load_jsonl(temp_file)
+        assert data == [item for item in loaded]
+        assert self.io.add_jsonl(temp_file, data[0])

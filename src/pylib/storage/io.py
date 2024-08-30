@@ -252,3 +252,14 @@ class IO:
             for item in data:
                 fp.write(orjson.dumps(item).decode() + "\n")
         return file.is_file()
+
+    @classmethod
+    def add_jsonl(
+        cls,
+        file: Path,
+        item: dict,
+    ) -> bool:
+        """Save data into jsonl file."""
+        with open(file, "a", encoding="utf-8") as fp:
+            fp.write(orjson.dumps(item).decode() + "\n")
+        return file.is_file()
